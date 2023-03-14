@@ -6,4 +6,4 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
-![Screenshot_20230314_222715](https://user-images.githubusercontent.com/109550336/225128709-7a524e47-4842-44af-a517-207281cf94c7.png)
+![Screenshot_20230314_222715](https://user-images.githubusercontent.com/109550336/225128822-86112e51-8d98-483b-abc8-860db01d6251.png)
