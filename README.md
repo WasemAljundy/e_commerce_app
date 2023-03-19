@@ -1,4 +1,4 @@
-# ui_app
+# full ui e commerce app built by flutter 
 
 A new Flutter project.
 
