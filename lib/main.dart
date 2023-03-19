@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_app/screens/launch_screen.dart';
 import 'package:ui_app/screens/login_screen.dart';
+import 'package:ui_app/screens/main_screen.dart';
 import 'package:ui_app/screens/out_boarding_screen.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         '/launch_screen': (context) => const LaunchScreen(),
         '/out_boarding_screen': (context) => const OutBoardingScreen(),
         '/login_screen': (context) => const LoginScreen(),
+        '/main_screen': (context) => const MainScreen(),
       },
     );
   }
