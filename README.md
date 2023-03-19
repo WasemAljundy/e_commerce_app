@@ -1,4 +1,4 @@
-# full ui *E-Commerce* app built by flutter 
+# full ui **E-Commerce** app built by flutter 
 
 A new Flutter project.
 
