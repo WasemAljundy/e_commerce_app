@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/app_text_field.dart';
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -14,6 +12,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _passwordTextEditingController;
   String? _emailErrorText;
   String? _passwordErrorText;
+  bool obscureText = false;
 
   @override
   void initState() {
@@ -71,25 +70,38 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                AppTextField(
-                  textEditingController: _emailTextEditingController,
-                  prefixIcon: Icons.email,
-                  suffixIcon: Icons.send,
-                  labelText: 'Email',
-                  hintText: 'wasem@gmail.com',
-                  textInputType: TextInputType.emailAddress,
-                  errorText: _emailErrorText,
+                TextField(
+                  controller: _emailTextEditingController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    labelText: 'Email',
+                    hintText: 'wasem@gmail.com',
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    prefixIcon: const Icon(Icons.email),
+                    errorText: _emailErrorText,
+                  ),
+                  // errorText: _emailErrorText,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                AppTextField(
-                  textEditingController: _passwordTextEditingController,
-                  prefixIcon: Icons.lock,
-                  suffixIcon: Icons.remove_red_eye,
-                  labelText: 'Password',
-                  obscureText: true,
-                  errorText: _passwordErrorText,
+                TextField(
+                  controller: _passwordTextEditingController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.remove_red_eye),
+                    ),
+                    errorText: _passwordErrorText,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,

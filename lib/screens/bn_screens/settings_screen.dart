@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_app/models/address.dart';
 import 'package:ui_app/models/contact_info.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -16,6 +17,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     ContactInfo(title: 'Hossam', number: '0597185334'),
     ContactInfo(title: 'Wesam', number: '0597744045'),
   ];
+
+  final List<Address> _addresses = [
+    const Address(id: 1, name: 'Gaza'),
+    const Address(id: 2, name: 'Rafah'),
+    const Address(id: 3, name: 'Khanyounis'),
+    const Address(id: 4, name: 'Al-Borayj'),
+  ];
+
+  int? _selectedAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +110,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             );
           },
-        )
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Text(
+          'Address',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        DropdownButton(
+          isExpanded: true,
+          onTap: () {},
+          onChanged: (value) {
+            if (value != null) {
+              setState(() {
+                _selectedAddress = value;
+              });
+            }
+          },
+          value: _selectedAddress,
+          items: _addresses.map((e) {
+            return DropdownMenuItem(
+              value: e.id,
+              child: Text(e.name),
+            );
+          }).toList(),
+        ),
       ],
     );
   }
