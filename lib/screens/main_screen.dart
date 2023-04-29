@@ -38,7 +38,71 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(bnScreens[_currentIndex].title),
-        centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.lightBlueAccent,
+                    Colors.blue.shade700,
+                  ],
+                ),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+              ),
+              currentAccountPicture: const CircleAvatar(
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage('images/wasem.jpg'),
+                ),
+              ),
+              accountName: const Text('Wasem Aljundy'),
+              accountEmail: const Text('wasemaljundy22@gmail.com'),
+              otherAccountsPictures: const [
+                CircleAvatar(),
+                CircleAvatar(),
+                CircleAvatar(),
+              ],
+            ),
+            ListTile(
+              onTap: () => Navigator.pushNamed(context, '/info_screen'),
+              leading: const Icon(Icons.info),
+              title: const Text('Info'),
+              subtitle: const Text('Info About App'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+            ),
+            ListTile(
+              onTap: () => Navigator.pushNamed(context, '/faqs_screen'),
+              leading: const Icon(Icons.question_answer_rounded),
+              title: const Text('FAQs'),
+              subtitle: const Text('Frequently Asked Question'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+            ),
+            const Divider(
+              thickness: 2,
+              indent: 25,
+              endIndent: 25,
+            ),
+            ListTile(
+              onTap: () {
+                Future.delayed(
+                  const Duration(milliseconds: 400),
+                  () => Navigator.pushNamedAndRemoveUntil(
+                      context, '/login_screen', (route) => false),
+                );
+                // Navigator.
+              },
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              subtitle: const Text('See You Soon ✨'),
+            ),
+          ],
+        ),
       ),
       body: bnScreens[_currentIndex].widget,
       bottomNavigationBar: BottomNavigationBar(

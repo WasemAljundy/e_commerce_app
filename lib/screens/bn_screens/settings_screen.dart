@@ -27,6 +27,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   int? _selectedAddress;
 
+  late TextEditingController _tagTextController;
+  List<String> _tags = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tagTextController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _tagTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -96,8 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             return CheckboxListTile(
               title: Text(
                 _contactInfo[index].title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                style: const TextStyle(fontSize: 18),
               ),
               subtitle: Text(_contactInfo[index].number),
               value: _contactInfo[index].selected,
@@ -140,7 +156,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
             );
           }).toList(),
         ),
+        const SizedBox(
+          height: 10,
+        ),
+        const Text(
+          'Tags',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        TextField(
+          controller: _tagTextController,
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            hintText: 'Enter Tag Name',
+            suffixIcon: IconButton(
+              onPressed: () => addTag(),
+              icon: const Icon(Icons.save),
+            ),
+          ),
+        ),
+        Wrap(
+          spacing: 10,
+          // crossAxisAlignment: WrapCrossAlignment.center,
+          // runAlignment: WrapAlignment.center,
+          children: _tags
+              .map(
+                (e) => Chip(
+                  label: Text(e),
+                  backgroundColor: Colors.white,
+                  elevation: 5,
+                  deleteIcon: const Icon(Icons.close),
+                  deleteIconColor: Colors.red,
+                  onDeleted: () => deleteTag(e),
+                  side: const BorderSide(
+                    width: 2,
+                    color: Colors.lightBlue,
+                  ),
+                ),
+              )
+              .toList(),
+        ),
       ],
     );
+  }
+
+  void addTag() {
+    if (_tagTextController.text.isNotEmpty) {
+      setState(() {
+        _tags.add(_tagTextController.text);
+        _tagTextController.text = '';
+      });
+    }
+  }
+
+  void deleteTag(String tag) {
+    setState(() {
+      _tags.removeWhere((element) => element == tag);
+    });
   }
 }

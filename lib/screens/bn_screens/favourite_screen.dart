@@ -21,7 +21,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       ),
       itemBuilder: (context, index) {
         return Card(
-          elevation: 5,
+          elevation: 10,
           color: index % 3 == 0 ? Colors.cyan : Colors.pink,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

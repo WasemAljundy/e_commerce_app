@@ -12,7 +12,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _passwordTextEditingController;
   String? _emailErrorText;
   String? _passwordErrorText;
-  bool obscureText = false;
+  bool _obscureText = true;
 
   @override
   void initState() {
@@ -90,11 +90,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextField(
                   controller: _passwordTextEditingController,
                   keyboardType: TextInputType.text,
+                  obscureText: _obscureText,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
-                      onPressed: () {},
+                      onPressed: ()=> setState(() {
+                        _obscureText = ! _obscureText;
+                      }),
                       icon: const Icon(Icons.remove_red_eye),
                     ),
                     errorText: _passwordErrorText,
