@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_app/prefs/shared_pref_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -148,16 +149,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void checkError() {
     setState(() {
-      _emailErrorText = _emailTextEditingController.text.isEmpty
-          ? 'Enter email address'
-          : null;
-      _passwordErrorText =
-          _passwordTextEditingController.text.isEmpty ? 'Enter password' : null;
-    });
+      _emailErrorText = _emailTextEditingController.text.isEmpty ? 'Enter email address' : null;
+      _passwordErrorText = _passwordTextEditingController.text.isEmpty ? 'Enter password' : null;
+    },);
   }
 
-  void login() {
+  void login() async {
     showMessage(message: 'Logged in Successfully');
+    await SharedPrefController().save(email: _emailTextEditingController.text);
     Future.delayed(const Duration(seconds: 1), () {
       Navigator.pushReplacementNamed(context, '/main_screen');
     });

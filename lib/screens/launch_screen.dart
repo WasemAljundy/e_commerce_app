@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_app/prefs/shared_pref_controller.dart';
 
 class LaunchScreen extends StatefulWidget {
   const LaunchScreen({Key? key}) : super(key: key);
@@ -12,10 +13,10 @@ class _LaunchScreenState extends State<LaunchScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Navigator.pushReplacementNamed(context, '/out_boarding_screen'),
-    );
+    Future.delayed(const Duration(seconds: 3), () {
+      String route = SharedPrefController().loggedIn ? '/main_screen' : '/out_boarding_screen';
+      Navigator.pushReplacementNamed(context, route);
+    });
   }
 
   @override

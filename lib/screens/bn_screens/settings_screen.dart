@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_app/main.dart';
 import 'package:ui_app/models/address.dart';
 import 'package:ui_app/models/contact_info.dart';
 
@@ -10,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notifications = false;
+  bool _notifications = MyApp.darkMode;
   String _gender = 'M';
   final List<ContactInfo> _contactInfo = <ContactInfo>[
     ContactInfo(title: 'Wasem', number: '0592463727'),

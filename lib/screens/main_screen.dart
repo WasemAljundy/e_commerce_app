@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_app/models/bn_screen.dart';
+import 'package:ui_app/prefs/shared_pref_controller.dart';
 import 'package:ui_app/screens/bn_screens/articles_screen.dart';
 import 'package:ui_app/screens/bn_screens/favourite_screen.dart';
 import 'package:ui_app/screens/bn_screens/home_screen.dart';
@@ -89,12 +90,14 @@ class _MainScreenState extends State<MainScreen> {
               endIndent: 25,
             ),
             ListTile(
-              onTap: () {
-                Future.delayed(
-                  const Duration(milliseconds: 400),
-                  () => Navigator.pushNamedAndRemoveUntil(
-                      context, '/login_screen', (route) => false),
-                );
+              onTap: () async {
+                await SharedPrefController().logout();
+                Navigator.pushReplacementNamed(context, '/login_screen');
+                // Future.delayed(
+                //   const Duration(milliseconds: 400),
+                //   () => Navigator.pushNamedAndRemoveUntil(
+                //       context, '/login_screen', (route) => false),
+                // );
                 // Navigator.
               },
               leading: const Icon(Icons.logout),
