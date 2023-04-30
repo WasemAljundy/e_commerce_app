@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_app/prefs/shared_pref_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LaunchScreen extends StatefulWidget {
   const LaunchScreen({Key? key}) : super(key: key);
@@ -34,9 +35,9 @@ class _LaunchScreenState extends State<LaunchScreen> {
             ],
           ),
         ),
-        child: const Text(
-          'Welcome',
-          style: TextStyle(
+        child: Text(
+          AppLocalizations.of(context)!.welcome,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 30,
           ),

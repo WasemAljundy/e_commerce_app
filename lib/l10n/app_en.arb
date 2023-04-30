@@ -1,0 +1,9 @@
+{
+ "welcome" : "Welcome",
+ "login" : "LOGIN",
+ "welcome_back" : "Welcome Back...",
+ "enter_email_password" : "Enter email & password",
+ "email" : "Email",
+ "password" : "Password",
+ "main" : "Main"
+}

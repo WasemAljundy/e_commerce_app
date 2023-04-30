@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ui_app/main.dart';
+import 'package:provider/provider.dart';
 import 'package:ui_app/models/address.dart';
 import 'package:ui_app/models/contact_info.dart';
+import 'package:ui_app/provider/app_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -11,7 +12,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notifications = MyApp.darkMode;
   String _gender = 'M';
   final List<ContactInfo> _contactInfo = <ContactInfo>[
     ContactInfo(title: 'Wasem', number: '0592463727'),
@@ -29,18 +29,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   int? _selectedAddress;
 
   late TextEditingController _tagTextController;
-  List<String> _tags = [];
+  final List<String> _tags = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _tagTextController = TextEditingController();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _tagTextController.dispose();
     super.dispose();
   }
@@ -52,12 +50,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       children: [
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
-          value: _notifications,
+          value: Provider.of<LanguageProvider>(context).darkTheme,
           onChanged: (bool value) => setState(() {
-            _notifications = value;
+            Provider.of<LanguageProvider>(context, listen: false).changeTheme();
           }),
-          title: const Text('Notifications'),
-          subtitle: const Text('Enable/Disable Notifications'),
+          title: const Text('Dark Mode'),
+          subtitle: const Text('Enable/Disable Dark Mode Theme'),
         ),
         const SizedBox(
           height: 20,
@@ -186,7 +184,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: _tags
               .map(
                 (e) => Chip(
-                  label: Text(e),
+                  label: Text(e, style: const TextStyle(fontSize: 15, color: Colors.black)),
                   backgroundColor: Colors.white,
                   elevation: 5,
                   deleteIcon: const Icon(Icons.close),

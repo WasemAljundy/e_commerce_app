@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ui_app/prefs/shared_pref_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ui_app/provider/app_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _emailTextEditingController = TextEditingController();
     _passwordTextEditingController = TextEditingController();
@@ -25,7 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _emailTextEditingController.dispose();
     _passwordTextEditingController.dispose();
     super.dispose();
@@ -34,15 +35,23 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         centerTitle: true,
-        backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          'LOGIN',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        title: Text(
+          AppLocalizations.of(context)!.login,
+          style: TextStyle(
+            color: Provider.of<LanguageProvider>(context).darkTheme ? Colors.white : Colors.black,
+            fontWeight: FontWeight.w500,
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        isExtended: true,
+        onPressed: () => Provider.of<LanguageProvider>(context, listen: false)
+            .changeLanguage(),
+        child: const Icon(Icons.language),
       ),
       body: Column(
         children: [
@@ -54,17 +63,19 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Welcome Back...',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.welcome_back,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                   ),
                 ),
-                const Text(
-                  'Enter email & password',
+                Text(
+                  AppLocalizations.of(context)!.enter_email_password,
                   style: TextStyle(
-                    color: Colors.black45,
+                    color: Provider.of<LanguageProvider>(context).darkTheme
+                        ? Colors.white38
+                        : Colors.black45,
                     fontSize: 18,
                   ),
                 ),
@@ -77,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    labelText: 'Email',
+                    labelText: AppLocalizations.of(context)!.email,
                     hintText: 'wasem@gmail.com',
                     hintStyle: const TextStyle(color: Colors.grey),
                     prefixIcon: const Icon(Icons.email),
@@ -93,11 +104,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.text,
                   obscureText: _obscureText,
                   decoration: InputDecoration(
-                    labelText: 'Password',
+                    labelText: AppLocalizations.of(context)!.password,
                     prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
-                      onPressed: ()=> setState(() {
-                        _obscureText = ! _obscureText;
+                      onPressed: () => setState(() {
+                        _obscureText = !_obscureText;
                       }),
                       icon: const Icon(Icons.remove_red_eye),
                     ),
@@ -118,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text('LOGIN'),
+                  child: Text(AppLocalizations.of(context)!.login),
                 ),
               ],
             ),
@@ -148,10 +159,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void checkError() {
-    setState(() {
-      _emailErrorText = _emailTextEditingController.text.isEmpty ? 'Enter email address' : null;
-      _passwordErrorText = _passwordTextEditingController.text.isEmpty ? 'Enter password' : null;
-    },);
+    setState(
+      () {
+        _emailErrorText = _emailTextEditingController.text.isEmpty
+            ? 'Enter email address'
+            : null;
+        _passwordErrorText = _passwordTextEditingController.text.isEmpty
+            ? 'Enter password'
+            : null;
+      },
+    );
   }
 
   void login() async {

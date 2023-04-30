@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ui_app/models/bn_screen.dart';
 import 'package:ui_app/prefs/shared_pref_controller.dart';
+import 'package:ui_app/provider/app_provider.dart';
 import 'package:ui_app/screens/bn_screens/articles_screen.dart';
 import 'package:ui_app/screens/bn_screens/favourite_screen.dart';
 import 'package:ui_app/screens/bn_screens/home_screen.dart';
@@ -39,6 +41,12 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(bnScreens[_currentIndex].title),
+        actions: [
+          IconButton(
+            onPressed: () => Provider.of<LanguageProvider>(context, listen: false).changeLanguage(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
